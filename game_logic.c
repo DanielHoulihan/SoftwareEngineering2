@@ -183,18 +183,21 @@ void place_tokens(square board[NUM_ROWS][NUM_COLUMNS], player players[], int num
 		printf("player %d rolls the dice and lands on %d\n", j+1, dice);
     }
   
-        int move;
-        printf("Would you like to sidestep this token on row %d?\n", dice);
+        for(int i=0; i<numPlayers; i++){
+            
+            int sidestep, upordown;
+        printf("player %d which token would you like to move?\n", numPlayers+1);
+        scanf("%d", &sidestep);
         printf("Enter 1 to move up, 2 to move down or 3 to not move\n");
-        scanf("%d", &move);
+        scanf("%d", &upordown);
         
-        if(move==1){
-        
-            board[dice][0].stack = pop(board[dice][0].stack);
-            board[dice][1].stack = push(players[i].col, board[dice][1].stack);
-            //print_board(board);
+         if(upordown==1){
+            board[sidestep][0].stack = pop(board[sidestep][0].stack);
+            board[sidestep+1][0].stack = push(players[i].col, board[sidestep][1].stack);
         }
         print_board(board);
+        }
+        
 //        if(move==2){
 //            board[dice][0].stack=pop();
 //            board[dice+1][0].stack=push();
