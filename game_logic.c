@@ -101,9 +101,13 @@ void place_tokens(square board[NUM_ROWS][NUM_COLUMNS], player players[], int num
         for (int i=0; i<numPlayers; i++) {
             printf("Player %d please select a square for token %d\n", i+1, j+1);
             // code for placing token...
-            printf("Please select a square:\n ");
+            printf("Please select a square: ");
             scanf("%d", &selectedSquare);
             
+            
+            
+            
+//            if(selectedSquare>=0&&selectedSquare<6){
             
 //            bool valid;
 //            if(board[selectedSquare][0].stack == NULL){
@@ -124,11 +128,13 @@ void place_tokens(square board[NUM_ROWS][NUM_COLUMNS], player players[], int num
 //            }
             
             
-            token *t = malloc(sizeof(token));
-            t->col = players[i].col;
-            t->next = board[selectedSquare][0].stack;
-            board[selectedSquare][0].stack = t;
-            board[selectedSquare][0].count++;
+//            token *t = malloc(sizeof(token));
+//            t->col = players[i].col;
+//            t->next = board[selectedSquare][0].stack;
+//            board[selectedSquare][0].stack = t;
+            
+            //Placing tokens
+            board[selectedSquare][0].stack = push(players[i].col, board[selectedSquare][0].stack);
             print_board(board);
            
             
@@ -142,12 +148,18 @@ void place_tokens(square board[NUM_ROWS][NUM_COLUMNS], player players[], int num
     printf("stack height at (%d, 0) is %d\n", selectedSquare, placedTokens);
         }
     }
+    //}
+ 
     
-    for(int i=0; i<6; i++){
-    if(placedTokens>board[i][0].count);
-    printf("Choose a different square");
-    }
-   
+//    for(int i=0; i<6; i++){
+//    if(placedTokens>board[i][0].count);
+//    printf("Choose a different square");
+//    }
+//   
+//    
+//    if(moveAllowed(selectedSquare)){
+//        
+//    }
 
 }
 
@@ -162,26 +174,43 @@ void place_tokens(square board[NUM_ROWS][NUM_COLUMNS], player players[], int num
  */
 
     void play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPlayers) {
-        	
+        int dice;	
         srand(time(NULL));
 	int i = 0;
+        for(int j=0; j<numPlayers; j++){
 	for (i = 0; i < 1; i++) {
-		int dice = (rand() % 6) + 1;
-		printf("dice is rolled and lands on %d\n",dice);
+		dice = (rand() % 6) + 1;
+		printf("player %d rolls the dice and lands on %d\n", j+1, dice);
     }
-//        int move;
-//        printf("Would you like to sidestep this token?\n");
-//        printf("Enter 1 to move up, 2 to move down or 3 to not move\n");
-//        scanf("%d", &move);
+  
+        int move;
+        printf("Would you like to sidestep this token on row %d?\n", dice);
+        printf("Enter 1 to move up, 2 to move down or 3 to not move\n");
+        scanf("%d", &move);
+        
+        if(move==1){
+        
+            board[dice][0].stack = pop(board[dice][0].stack);
+            board[dice][1].stack = push(players[i].col, board[dice][1].stack);
+            //print_board(board);
+        }
+        print_board(board);
+//        if(move==2){
+//            board[dice][0].stack=pop();
+//            board[dice+1][0].stack=push();
+//        }
+//        
+//        if(move==3){
+//            printf("You have chosen not to sidestep");
+//        }
 
         
-
-    }
+        }
+   }
 
 void print_player(struct player p) {
     printf("Player %s has colour %c\n", p.name, print_colour(p.col));
 }
-
 
 
  

@@ -76,3 +76,24 @@ int initialize_players(struct player players[]) {
     //YOU WILL NEED TO IMPLEMENT THIS FUNCTION IN THIS LAB
     return num;
 }
+
+struct token * push(enum color value, struct token *top){
+    struct token *curr = top;
+    top = malloc(sizeof(curr));
+    printf("val in push: %d\n\n", value);
+
+    top->col = value;
+    top->next = curr;
+    printf("color in push: %d\n\n", top->col);
+    return top;
+}
+
+struct token * pop(struct token *top){
+    struct token *curr = top;
+    if(curr!=NULL){
+        top = curr->next;
+        printf("Stack Data: %d\n", curr->col);
+        free(curr);
+    }
+    return top;
+}

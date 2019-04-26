@@ -33,3 +33,4 @@ void play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPla
 int SquareSize_stack(square board[NUM_ROWS][NUM_COLUMNS], int Row, int Column);
 
 
+  

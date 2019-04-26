@@ -75,6 +75,8 @@ void initialize_board(square board[NUM_ROWS][NUM_COLUMNS]);
  */
 int initialize_players(player players[]);
 
+struct token * pop(struct token *top);
 
+struct token * push(enum color value, struct token *top);
 
 
