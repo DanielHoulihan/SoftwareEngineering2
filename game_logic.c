@@ -174,14 +174,14 @@ void place_tokens(square board[NUM_ROWS][NUM_COLUMNS], player players[], int num
  */
 
     void play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPlayers) {
-        int dice;	
-        srand(time(NULL));
-	int i = 0;
-        for(int j=0; j<numPlayers; j++){
-	for (i = 0; i < 1; i++) {
-		dice = (rand() % 6) + 1;
-		printf("player %d rolls the dice and lands on %d\n", j+1, dice);
-    }
+//        int dice;	
+//        srand(time(NULL));
+//	int i = 0;
+//        for(int j=0; j<numPlayers; j++){
+//	for (i = 0; i < 1; i++) {
+//		dice = (rand() % 6) + 1;
+//		printf("player %d rolls the dice and lands on %d\n", j+1, dice);
+//    }
   
         for(int i=0; i<numPlayers; i++){
             
@@ -213,6 +213,7 @@ void place_tokens(square board[NUM_ROWS][NUM_COLUMNS], player players[], int num
         }
         
         int tokenToMove;
+        int dice=rollDice();
             printf("You must move a token in row %d, which column do you choose?", dice);
             scanf("%d", &tokenToMove);
             board[dice][0].stack = pop(board[dice][0].stack);
@@ -221,13 +222,24 @@ void place_tokens(square board[NUM_ROWS][NUM_COLUMNS], player players[], int num
         }
         //print_board(board);
         }
-   }
+   //}
 
 void print_player(struct player p) {
     printf("Player %s has colour %c\n", p.name, print_colour(p.col));
 }
 
-
+int rollDice(){
+           int dice;	
+        srand(time(NULL));
+	int i = 0;
+        for(int j=0; j<1; j++){
+	for (i = 0; i < 1; i++) {
+		dice = (rand() % 6) + 1;
+		printf("player %d rolls the dice and lands on %d\n", j+1, dice);
+    } 
+    }
+        return dice;
+}
  
 //}
 
