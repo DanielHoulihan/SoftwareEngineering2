@@ -185,29 +185,41 @@ void place_tokens(square board[NUM_ROWS][NUM_COLUMNS], player players[], int num
   
         for(int i=0; i<numPlayers; i++){
             
-            int sidestep, upordown;
-        printf("player %d which token would you like to move?\n", numPlayers+1);
-        scanf("%d", &sidestep);
+            int sidesteprow, sidestepcol, upordown;
+        printf("player %d which row would you like to sidestep from?\n", i+1);
+        scanf("%d", &sidesteprow);
+        printf("player %d which column would you like to sidestep from?\n",i+1);
+        scanf("%d", &sidestepcol);
         printf("Enter 1 to move up, 2 to move down or 3 to not move\n");
         scanf("%d", &upordown);
         
-         if(upordown==1){
-            board[sidestep][0].stack = pop(board[sidestep][0].stack);
-            board[sidestep+1][0].stack = push(players[i].col, board[sidestep][1].stack);
+        if(upordown==1){//moving up
+            board[sidesteprow][sidestepcol].stack = pop(board[sidesteprow][sidestepcol].stack);
+            board[sidesteprow-1][sidestepcol].stack = push(players[i].col, board[sidesteprow][sidestepcol].stack);
+            print_board(board);
         }
-        print_board(board);
-        }
+        //print_board(board);
         
-//        if(move==2){
-//            board[dice][0].stack=pop();
-//            board[dice+1][0].stack=push();
-//        }
+        
+       if(upordown==2){//moving up
+            board[sidesteprow][sidestepcol].stack = pop(board[sidesteprow][sidestepcol].stack);
+            board[sidesteprow+1][sidestepcol].stack = push(players[i].col, board[sidesteprow][sidestepcol].stack);
+            print_board(board);
+        }
+       // print_board(board);
 //        
-//        if(move==3){
-//            printf("You have chosen not to sidestep");
-//        }
-
+        if(upordown==3){
+            printf("You have chosen not to sidestep");
+        }
         
+        int tokenToMove;
+            printf("You must move a token in row %d, which column do you choose?", dice);
+            scanf("%d", &tokenToMove);
+            board[dice][0].stack = pop(board[dice][0].stack);
+            board[dice][tokenToMove+1].stack = push(players[i].col, board[dice][tokenToMove+1].stack);
+            print_board(board);
+        }
+        //print_board(board);
         }
    }
 
