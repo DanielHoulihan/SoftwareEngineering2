@@ -1,16 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 #include "game_init.h"
+#include "game_logic.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <time.h>
 
 void printLine();
+
+
 
 /*
  * Returns the first letter associated with the color of the token
@@ -87,29 +85,34 @@ void printLine(){
  *        numPlayers - the number of players
  */
 void place_tokens(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPlayers) {
-
-    int minNumOfTokens = 0;
     int selectedSquare = 0;
-    int placedTokens = 0;
 
 
     for (int j=0; j<4; j++) {
         for (int i=0; i<numPlayers; i++) {
-            printf("Player %d please select a square for token %d\n", i+1, j+1);
+            printf("%s please select a square (0-5) for token %d\n", players[i].name, j+1);
             // code for placing token...
             printf("Please select a square:\n ");
             scanf("%d", &selectedSquare);
-            token *t = malloc(sizeof(token));
-            t->col = players[i].col;
-            t->next = board[selectedSquare][0].stack;
-            board[selectedSquare][0].stack = t;
+
+            //Placing tokens on board using push
+            board[selectedSquare][0].stack = push(players[i].col, board[selectedSquare][0].stack);
             print_board(board);
+
+
+            //code for counting stacks on each rows
+            int placedTokens = 0;
+            token *t1 = board[selectedSquare][0].stack;
+            while(t1 != NULL){
+                placedTokens+= 1;//increment
+                t1 = t1->next;
+            }
+            printf("-------------------------------------\n");
+            printf("Stack height at (%d,0) is %d\n",selectedSquare, placedTokens);
+            printf("-------------------------------------\n");
 
         }
     }
-
-//
-
 }
 
 
@@ -122,11 +125,129 @@ void place_tokens(square board[NUM_ROWS][NUM_COLUMNS], player players[], int num
  *        numPlayers - the number of players
  */
 
-    void play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPlayers) {
-        //TO BE IMPLEMENTED
-    };
+int play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPlayers) {
+    int sidesteprow, sidestepcol, upordown;
+    int tokenToMove;
+    srand(time(NULL));
+    int winner=0;
+    while(winner!=1){
+
+    for (int i = 0; i < numPlayers; i++) {
+        int dice = rand()%6;
+        //print horizontal line
+        printLine();
+
+        printf("%s rolls the dice and lands on %d \n",players[i].name, dice);
+        printf("%s, select a token %c (row # and then column #) \n", players[i].name, print_colour(players[i].col));
+        scanf("%d %d", &sidesteprow, &sidestepcol);
+
+        while(board[sidesteprow][sidestepcol].stack == NULL){ // code if the user selects an empty square on row
+            error_Msg();
+            printf("%s, select a token %c (row # and then column #) \n", players[i].name, print_colour(players[i].col));
+            scanf("%d %d", &sidesteprow, &sidestepcol);
+
+        }
+
+        // loop to check if the user selects their own token
+        while (players[i].col != board[sidesteprow][sidestepcol].stack->col){
+            error_Msg();
+            printf("%s, select a token %c (row # and then column #) \n", players[i].name, print_colour(players[i].col));
+            scanf("%d %d", &sidesteprow, &sidestepcol);
+            continue;
+        }
+
+        //if the player approaches an obstacle
+        if(board[sidesteprow][sidestepcol].type == OBSTACLE){
+            Obstacle(board, sidesteprow, sidestepcol);
+        }
+
+        //condition if there are no obstacles then let the square = normal
+        if (Obstacle(board,sidesteprow,sidestepcol) ==  true){
+            board[sidesteprow][sidestepcol].type = NORMAL;
+        }
+
+        //condition if player chose correct token and not in obstacle
+        if (players[i].col == board[sidesteprow][sidestepcol].stack->col && board[sidesteprow][sidestepcol].type == NORMAL) {
+            printf("Enter 1 to move up, 2 to move down or 3 to not sidestep\n");
+            scanf("%d", &upordown);
+
+            switch (upordown) {
+                case 1://moving up
+//                    board[sidesteprow][sidestepcol].stack = pop(board[sidesteprow][sidestepcol].stack);
+//                    board[sidesteprow - 1][sidestepcol].stack = push(players[i].col,
+//                                                                     board[sidesteprow][sidestepcol].stack);
+//                    print_board(board);
+//                    printf("You must move a token in row %d, input col to move 1 square ahead?", dice);
+//                    scanf("%d", &tokenToMove);
+//                    
+//                    token *tempMoveForward = board[dice][tokenToMove].stack;
+//                    if (board[dice][tokenToMove].stack != NULL){
+//                    board[dice][tokenToMove].stack = board[dice][tokenToMove].stack->next;
+//                    tempMoveForward->next = board[dice][tokenToMove+1].stack;
+//                    board[dice][tokenToMove+1].stack = tempMoveForward;
+//                    }
+//                    break;
+
+
+                case 2://moving down
+// 
+//                    print_board(board);
+//                    printf("You must move a token in row %d, input col to move 1 square ahead?", dice);
+//                    scanf("%d", &tokenToMove);
+//                    
+//                    //token *temp = board[dice][tokenToMove].stack;
+//                    if (board[dice][tokenToMove].stack != NULL){
+//                    board[dice][tokenToMove].stack = board[dice][tokenToMove].stack->next;
+//                    tempMoveForward->next = board[dice][tokenToMove+1].stack;
+//                    board[dice][tokenToMove+1].stack = tempMoveForward;
+//                    }
+                    break;
+
+                case 3://not moving up or down
+
+                    printf("You must move a token in row %d, input col to move 1 square ahead?", dice);
+                    scanf("%d", &tokenToMove);
+                    
+                    token *tempMoveForward = board[dice][tokenToMove].stack;
+                    if (board[dice][tokenToMove].stack != NULL){
+                    board[dice][tokenToMove].stack = board[dice][tokenToMove].stack->next;
+                    tempMoveForward->next = board[dice][tokenToMove+1].stack;
+                    board[dice][tokenToMove+1].stack = tempMoveForward;
+                    }
+                    print_board(board);
+
+                default:
+                    break;
+            }
+        }
+        continue;
+    }
+
+}
+//    for(int p=0; p<6; p++){
+//        if()
+//    }
+}
+
+
 
 void print_player(struct player p) {
     printf("Player %s has colour %c\n", p.name, print_colour(p.col));
 }
 
+//this bool function should return true if there arent any approaching obstacles else it should output false
+bool Obstacle(square board[NUM_ROWS][NUM_COLUMNS], int dice, int SelectedColumn) {
+//    for (int x = 0; x < 6; x++) {
+//        for (int y = 0; SelectedColumn; ++y) {
+//            if (board[x][y].stack != NORMAL) {
+//                printf("Error, you reached an obstacle");
+//                return false;
+//            }
+//        }
+//        return true;
+//  }
+}
+
+void error_Msg(){
+    printf("Error, this move is invalid\n");
+}
