@@ -4,7 +4,6 @@
  *
  * Input: the board to be printed.
  */
-#include <stdbool.h>
 void print_board(square board[NUM_ROWS][NUM_COLUMNS]);
 
 
@@ -17,12 +16,6 @@ void print_board(square board[NUM_ROWS][NUM_COLUMNS]);
  */
 void place_tokens(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPlayers);
 
-bool Obstacle(square board[NUM_ROWS][NUM_COLUMNS], int dice, int SelectedColumn);
-
-void error_Msg();
-
-
-
 
 void print_player(struct player p);
 /*
@@ -33,6 +26,12 @@ void print_player(struct player p);
  *        numPlayers - the number of players
  */
 int play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPlayers);
+//_Bool IsValid(square board[NUM_ROWS][0], int selectedSquare);
 
 
+int SquareSize_stack(square board[NUM_ROWS][NUM_COLUMNS], int Row, int Column);
 
+bool Obstacle(square board[NUM_ROWS][NUM_COLUMNS], int dice, int SelectedColumn);
+
+void error_Msg();
+  

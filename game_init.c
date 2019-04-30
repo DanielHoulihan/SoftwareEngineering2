@@ -80,11 +80,8 @@ int initialize_players(struct player players[]) {
 struct token * push(enum color value, struct token *top){
     struct token *curr = top;
     top = malloc(sizeof(curr));
-    printf("val in push: %d\n\n", value);
-
     top->col = value;
     top->next = curr;
-    printf("color in push: %d\n\n", top->col);
     return top;
 }
 
@@ -97,3 +94,11 @@ struct token * pop(struct token *top){
     }
     return top;
 }
+
+
+//void MoveToken(token *from, token *to){
+//    temp=from;
+//    from=from.next;
+//    temp.next=to;
+//    to=temp;
+//}

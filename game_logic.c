@@ -173,41 +173,16 @@ int play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPlay
 
             switch (upordown) {
                 case 1://moving up
-//                    board[sidesteprow][sidestepcol].stack = pop(board[sidesteprow][sidestepcol].stack);
-//                    board[sidesteprow - 1][sidestepcol].stack = push(players[i].col,
-//                                                                     board[sidesteprow][sidestepcol].stack);
-//                    print_board(board);
-//                    printf("You must move a token in row %d, input col to move 1 square ahead?", dice);
-//                    scanf("%d", &tokenToMove);
-//                    
-//                    token *tempMoveForward = board[dice][tokenToMove].stack;
-//                    if (board[dice][tokenToMove].stack != NULL){
-//                    board[dice][tokenToMove].stack = board[dice][tokenToMove].stack->next;
-//                    tempMoveForward->next = board[dice][tokenToMove+1].stack;
-//                    board[dice][tokenToMove+1].stack = tempMoveForward;
-//                    }
-//                    break;
-
-
-                case 2://moving down
-// 
-//                    print_board(board);
-//                    printf("You must move a token in row %d, input col to move 1 square ahead?", dice);
-//                    scanf("%d", &tokenToMove);
-//                    
-//                    //token *temp = board[dice][tokenToMove].stack;
-//                    if (board[dice][tokenToMove].stack != NULL){
-//                    board[dice][tokenToMove].stack = board[dice][tokenToMove].stack->next;
-//                    tempMoveForward->next = board[dice][tokenToMove+1].stack;
-//                    board[dice][tokenToMove+1].stack = tempMoveForward;
-//                    }
-                    break;
-
-                case 3://not moving up or down
-
+                {token *tempMoveForward = board[sidesteprow][sidestepcol].stack;
+                    if (board[sidesteprow][sidestepcol].stack != NULL){
+                    board[sidesteprow][sidestepcol].stack = board[sidesteprow][sidestepcol].stack->next;
+                    tempMoveForward->next = board[sidestepcol-1][sidestepcol].stack;
+                    board[sidesteprow-1][sidestepcol].stack = tempMoveForward;
+                    }
+                print_board(board);
+                 }   
                     printf("You must move a token in row %d, input col to move 1 square ahead?", dice);
                     scanf("%d", &tokenToMove);
-                    
                     token *tempMoveForward = board[dice][tokenToMove].stack;
                     if (board[dice][tokenToMove].stack != NULL){
                     board[dice][tokenToMove].stack = board[dice][tokenToMove].stack->next;
@@ -215,13 +190,49 @@ int play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPlay
                     board[dice][tokenToMove+1].stack = tempMoveForward;
                     }
                     print_board(board);
+                    break;
 
+
+                case 2://moving down
+                {token *tempMoveForward = board[sidesteprow][sidestepcol].stack;
+                    if (board[sidesteprow][sidestepcol].stack != NULL){
+                    board[sidesteprow][sidestepcol].stack = board[sidesteprow][sidestepcol].stack->next;
+                    tempMoveForward->next = board[sidesteprow+1][sidestepcol].stack;
+                    board[sidesteprow+1][sidestepcol].stack = tempMoveForward;
+                    }
+                    print_board(board);
+                }
+                    printf("You must move a token in row %d, input col to move 1 square ahead?", dice);
+                    scanf("%d", &tokenToMove);
+                    {token *tempMoveForward = board[dice][tokenToMove].stack;
+                    if (board[dice][tokenToMove].stack != NULL){
+                    board[dice][tokenToMove].stack = board[dice][tokenToMove].stack->next;
+                    tempMoveForward->next = board[dice][tokenToMove+1].stack;
+                    board[dice][tokenToMove+1].stack = tempMoveForward;
+                    }
+                    print_board(board);
+                    }
+                    break;
+
+                case 3://not moving up or down
+
+                    printf("You must move a token in row %d, input col to move 1 square ahead?", dice);
+                    scanf("%d", &tokenToMove);  
+                    {token *tempMoveForward = board[dice][tokenToMove].stack;
+                    if (board[dice][tokenToMove].stack != NULL){
+                    board[dice][tokenToMove].stack = board[dice][tokenToMove].stack->next;
+                    tempMoveForward->next = board[dice][tokenToMove+1].stack;
+                    board[dice][tokenToMove+1].stack = tempMoveForward;
+                    }
+                    print_board(board);
+                    }
                 default:
                     break;
             }
         }
         continue;
     }
+    
 
 }
 //    for(int p=0; p<6; p++){

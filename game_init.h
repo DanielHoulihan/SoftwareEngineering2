@@ -80,3 +80,4 @@ struct token * pop(struct token *top);
 struct token * push(enum color value, struct token *top);
 
 
+//void MoveToken(token *from, token *to);
