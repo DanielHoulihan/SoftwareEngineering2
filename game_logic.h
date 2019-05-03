@@ -33,5 +33,6 @@ int SquareSize_stack(square board[NUM_ROWS][NUM_COLUMNS], int Row, int Column);
 
 bool Obstacle(square board[NUM_ROWS][NUM_COLUMNS], int dice, int SelectedColumn);
 
+int diceRoll();
 void error_Msg();
-  
+
