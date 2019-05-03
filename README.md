@@ -1,2 +1,2 @@
-# COMP10050
-# SEP2
+# SoftwareEngineeringProject2
+Software Engineering Project 1, Assignment 2, Igel Argern Game
