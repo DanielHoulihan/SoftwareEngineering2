@@ -25,12 +25,14 @@ void print_player(struct player p);
  *        players - the array of the players
  *        numPlayers - the number of players
  */
-void play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPlayers);
-
+int play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPlayers);
 //_Bool IsValid(square board[NUM_ROWS][0], int selectedSquare);
 
 
 int SquareSize_stack(square board[NUM_ROWS][NUM_COLUMNS], int Row, int Column);
 
+bool Obstacle(square board[NUM_ROWS][NUM_COLUMNS], int dice, int SelectedColumn);
 
+void error_Msg();
   
+int diceRoll();
