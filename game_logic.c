@@ -138,7 +138,7 @@ int play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPlay
        
         //print horizontal line
         printLine();
-        int dice=4;//diceRoll();
+        int dice=diceRoll();
         printf("%s rolls the dice and lands on %d \n",players[i].name, dice);
         printf("%s, select a token %c (row # and then column #) \n", players[i].name, print_colour(players[i].col));
         scanf("%d %d", &sidesteprow, &sidestepcol);
