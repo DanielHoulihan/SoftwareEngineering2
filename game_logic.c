@@ -163,15 +163,12 @@ int play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPlay
                 if (board[sidesteprow][sidestepcol].type == OBSTACLE) {
                     if (Obstacle(board, sidesteprow, sidestepcol) == false) {
                         error_Msg();
-                        printf("You cant move this token until all the %c tokens are in the same column\n",print_colour(players[i].col));
+                        printf("You cant move this token %c \n",print_colour(players[i].col));
                     }
                     else if (Obstacle(board,sidesteprow,sidestepcol)==true){
                         board[sidesteprow][sidestepcol].type = NORMAL;
                     }
                 }
-
-
-
 
 
             //condition if player chose correct token
